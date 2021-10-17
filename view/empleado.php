@@ -30,6 +30,22 @@ switch ($_SERVER['REQUEST_METHOD'])
         $json = createJson($datos);
         echo json_encode($json);
         break;
+
+    case 'PUT':
+        $oE = new ControlerEmpleado();
+        $datos = $oE->updateControlerEmpleado($json);
+        $json = createJson($datos);
+        echo json_encode($json);
+        break;
+
+    case 'DELETE':
+        $oE = new ControlerEmpleado();
+        $datos = $oE->deleteControlerEmpleado($json);
+        $json = createJson($datos);
+        echo json_encode($json);
+        break;
+
+
 }
 
 ?>

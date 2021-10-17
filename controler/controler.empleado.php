@@ -17,6 +17,13 @@ class ControlerEmpleado
         return $result;
     }
 
+    function updateControlerEmpleado($datos)
+    {
+        $result = Empleado::updateModelEmpleado($datos['user'],$datos['pass']
+            ,$datos['names'],$datos['telefono'],$datos['rol'],$datos['estado']);
+        return $result;
+    }
+
     function readControlerEmpleado(){
         $result = Empleado::readModelEmpleado();
         return $result;
@@ -27,5 +34,13 @@ class ControlerEmpleado
         $result = Empleado::loginEmpleado($datos['user'],$datos['pass']);
         return $result;
     }
+
+    function deleteControlerEmpleado($datos)
+    {
+        $resultado = Empleado::deleteEmpleado($datos['user']);
+        return $resultado;
+    }
+
+
 }
 ?>
