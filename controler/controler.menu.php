@@ -26,9 +26,9 @@ class ControlerMenu
         return $result;
     }
 
-    function readControlerMenu()
+    function readControlerMenu($estado)
     {
-        $result = Menu::readModelMenu();
+        $result = Menu::readModelMenu($estado);
         return $result;
     }
 

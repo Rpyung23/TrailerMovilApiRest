@@ -66,9 +66,18 @@ class Menu{
     return false;
   }
 
-  public static function readModelMenu()
+  public static function readModelMenu($estado)
   {
-    $sql_ = "select * from menu as M order by M.estado DESC";
+    $sql_ = "";
+
+    if($estado == 'all')
+    {
+      $sql_ = "select * from menu as M order by M.estado DESC";
+    }else if ($estado == 'active')
+    {
+      $sql_ = "select * from menu as M where estado = 1 order by M.estado DESC";
+    }
+
     $result = mysqli_query(Conectar(),$sql_);
     $resultado = [];
     if (mysqli_num_rows($result) > 0)

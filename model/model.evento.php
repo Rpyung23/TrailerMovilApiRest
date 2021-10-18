@@ -7,17 +7,14 @@ if (file_exists('config/includes.php'))
   include_once '../config/includes.php';
 }
 
-class TipoMenu
-{
+class Evento{
 
-  /*public static function registerModelMenu($detalle, $precio, $foto
-      , $tipo_menu)
+  public static function registerModelEvento($nombre, $detalle, $ubicacion, $foto
+      , $fecha_evento, $precio)
   {
 
-    $sql = "insert into menu(detalle, precio, estado, foto_menu, fk_id_tipo_menu) 
-                 values ('".$detalle."',$precio,1
-                 ,'".$foto."'
-                 ,$tipo_menu)";
+    $sql = "insert into evento(nombre, detalle, ubicacion, foto, fecha_evento, precio,estado) 
+                 values ('".$nombre."','".$detalle."','".$ubicacion."','".$foto."','".$fecha_evento."',$precio,1)";
 
     mysqli_begin_transaction(Conectar(),MYSQLI_TRANS_START_READ_WRITE);
 
@@ -37,15 +34,15 @@ class TipoMenu
       mysqli_rollback(Conectar());
     }
     return false;
-  }*/
+  }
 
-  /*public static function updateModelMenu($id_menu,$detalle, $precio, $foto
-      , $tipo_menu,$estado)
+  public static function updateModelEvento($id_evento,$nombre, $detalle, $ubicacion, $foto
+      , $fecha_evento, $precio,$estado)
   {
 
-    $sql = "update menu set detalle = '".$detalle."', precio = $precio
-    , estado= $estado, foto_menu = '".$foto."', fk_id_tipo_menu = $tipo_menu 
-    where id_menu = $id_menu";
+    $sql = "update evento set nombre = '".$nombre."', detalle = '".$detalle."', ubicacion = '".$ubicacion."'
+    , foto = '".$foto."', fecha_evento = '".$fecha_evento."'
+    , precio = $precio, estado = $estado where id_evento = $id_evento";
 
     mysqli_begin_transaction(Conectar(),MYSQLI_TRANS_START_READ_WRITE);
 
@@ -65,11 +62,20 @@ class TipoMenu
       mysqli_rollback(Conectar());
     }
     return false;
-  }*/
+  }
 
-  public static function readModelTipoMenu()
+  public static function readModelEvento($estado)
   {
-    $sql_ = "select * from tipo_menu";
+    $sql_ = "";
+
+    if($estado == 'all')
+    {
+      $sql_ = "select * from evento as E order by E.fecha_evento DESC";
+    }else if ($estado == 'active')
+    {
+      $sql_ = "select * from evento as E where estado = 1 order by E.fecha_evento DESC";
+    }
+
     $result = mysqli_query(Conectar(),$sql_);
     $resultado = [];
     if (mysqli_num_rows($result) > 0)
@@ -85,10 +91,10 @@ class TipoMenu
     return $resultado;
   }
 
-  /*public static function deleteModelMenu($id_menu)
+  public static function deleteModelEvento($id_evento)
 {
 
-  $sql = "update menu set estado = 0 where id_menu = '".$id_menu."'";
+  $sql = "update evento set estado = 0 where id_evento = '".$id_evento."'";
 
   mysqli_begin_transaction(Conectar(),MYSQLI_TRANS_START_READ_WRITE);
 
@@ -108,7 +114,7 @@ class TipoMenu
     mysqli_rollback(Conectar());
   }
   return false;
-}*/
+}
 
 
 }

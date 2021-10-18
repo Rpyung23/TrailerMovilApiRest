@@ -1,9 +1,9 @@
 <?php
-if (file_exists('controler/controler.menu.php'))
+if (file_exists('controler/controler.evento.php'))
 {
-    include_once 'controler/controler.menu.php';
+    include_once 'controler/controler.evento.php';
 }else{
-    include_once '../controler/controler.menu.php';
+    include_once '../controler/controler.evento.php';
 }
 
 if (file_exists('config/createJson.php'))
@@ -18,29 +18,29 @@ $json = json_decode(file_get_contents('php://input'),true);
 switch ($_SERVER['REQUEST_METHOD'])
 {
     case 'POST':
-        $oM = new ControlerMenu();
-        $datos = $oM->insertControlerMenu($json);
+        $oM = new ControlerEvento();
+        $datos = $oM->insertControlerEvento($json);
         $json = createJson($datos);
         echo json_encode($json);
         break;
 
     case 'PUT':
-        $oC = new ControlerMenu();
-        $datos = $oC->updateControlerMenu($json);
+        $oC = new ControlerEvento();
+        $datos = $oC->updateControlerEvento($json);
         $json = createJson($datos);
         echo json_encode($json);
         break;
 
     case 'GET':
-        $oM = new ControlerMenu();
-        $datos = $oM->readControlerMenu($json['estado']);
+        $oM = new ControlerEvento();
+        $datos = $oM->readControlerEvento($json['estado']);
         $json = createJson($datos);
         echo json_encode($json);
         break;
 
     case 'DELETE':
-        $oM = new ControlerMenu();
-        $datos = $oM->deleteControlerMenu($json);
+        $oM = new ControlerEvento();
+        $datos = $oM->deleteControlerEvento($json);
         $json = createJson($datos);
         echo json_encode($json);
         break;
