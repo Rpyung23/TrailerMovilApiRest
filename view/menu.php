@@ -33,7 +33,8 @@ switch ($_SERVER['REQUEST_METHOD'])
 
     case 'GET':
         $oM = new ControlerMenu();
-        $datos = $oM->readControlerMenu($json['estado']);
+        $estado = $_GET['estado'];
+        $datos = $oM->readControlerMenu($estado);
         $json = createJson($datos);
         echo json_encode($json);
         break;

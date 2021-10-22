@@ -72,10 +72,14 @@ class Menu{
 
     if($estado == 'all')
     {
-      $sql_ = "select * from menu as M order by M.estado DESC";
+      $sql_ = "select M.id_menu,M.detalle,M.precio,M.estado,M.foto_menu,TM.id_tipo_menu
+     ,TM.detalle as detalle_tipo from menu as M join tipo_menu as TM 
+         on M.fk_id_tipo_menu = TM.id_tipo_menu order by M.estado DESC";
     }else if ($estado == 'active')
     {
-      $sql_ = "select * from menu as M where estado = 1 order by M.estado DESC";
+      $sql_ = "select M.id_menu,M.detalle,M.precio,M.estado,M.foto_menu,TM.id_tipo_menu
+     ,TM.detalle as detalle_tipo from menu as M join tipo_menu as TM 
+         on M.fk_id_tipo_menu = TM.id_tipo_menu where estado = 1 order by M.estado DESC";
     }
 
     $result = mysqli_query(Conectar(),$sql_);

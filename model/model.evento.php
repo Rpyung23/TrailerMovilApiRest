@@ -73,7 +73,7 @@ class Evento{
       $sql_ = "select * from evento as E order by E.fecha_evento DESC";
     }else if ($estado == 'active')
     {
-      $sql_ = "select * from evento as E where estado = 1 order by E.fecha_evento DESC";
+      $sql_ = "select * from evento as E where estado = 1 and E.fecha_evento>=CURRENT_DATE() order by E.fecha_evento DESC";
     }
 
     $result = mysqli_query(Conectar(),$sql_);
@@ -82,7 +82,14 @@ class Evento{
     {
       while ($datos = mysqli_fetch_assoc($result))
       {
-        $resultado[] = $datos;
+        $data = array("id_evento"=>utf8_encode($datos['id_evento']),"nombre"=>utf8_encode($datos['nombre']),
+            "detalle"=>utf8_encode($datos['detalle']),
+            "ubicacion"=>utf8_encode($datos['ubicacion']),
+            "foto"=>$datos['foto'],
+            "fecha_evento"=>$datos['fecha_evento'],
+            "precio"=>$datos['precio'],
+            "estado"=>$datos['estado']);
+        $resultado[] = $data;
       }
     }else{
       $resultado = null;

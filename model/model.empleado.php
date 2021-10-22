@@ -11,8 +11,10 @@ class Empleado{
 
   public static function registerModelEmpleado($_user,$_pass,$names,$telefono,$id_rol)
   {
-    $sql = "insert into empleado(user, password, nombres, telefono, fk_id_rol) values('".$_user."','".$_pass."','".$names."','".$telefono."',$id_rol,1)";
+    $sql = "insert into empleado(user, password, nombres, telefono, fk_id_rol,estado) values('".$_user."','".$_pass."','".$names."','".$telefono."',$id_rol,1)";
 
+
+    echo $sql;
     mysqli_begin_transaction(Conectar(),MYSQLI_TRANS_START_READ_WRITE);
     mysqli_autocommit(Conectar(),false);
     try {
@@ -50,7 +52,7 @@ class Empleado{
   public static function loginEmpleado($user,$pass)
   {
     $sql_ = "select E.user,E.nombres,R.id_rol,R.detalle from empleado as E join roles as R on E.fk_id_rol = R.id_rol
-       where E.user = '".$user."' and E.password = '".$pass."'";
+       where E.user = '".$user."' and E.password = '".$pass."' and estado = 1";
     $result = mysqli_query(Conectar(),$sql_);
     $resultado = null;
     if (mysqli_num_rows($result) > 0)

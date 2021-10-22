@@ -33,7 +33,8 @@ switch ($_SERVER['REQUEST_METHOD'])
 
     case 'GET':
         $oM = new ControlerEvento();
-        $datos = $oM->readControlerEvento($json['estado']);
+        $estado = $_GET['estado'];
+        $datos = $oM->readControlerEvento($estado);
         $json = createJson($datos);
         echo json_encode($json);
         break;
