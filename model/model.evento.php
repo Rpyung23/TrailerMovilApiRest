@@ -82,14 +82,15 @@ class Evento{
     {
       while ($datos = mysqli_fetch_assoc($result))
       {
-        $data = array("id_evento"=>utf8_encode($datos['id_evento']),"nombre"=>utf8_encode($datos['nombre']),
-            "detalle"=>utf8_encode($datos['detalle']),
-            "ubicacion"=>utf8_encode($datos['ubicacion']),
+        $data = array("id_evento"=>($datos['id_evento']),
+            "nombre"=>utf8_decode($datos['nombre']),
+            "detalle"=>utf8_decode($datos['detalle']),
+            "ubicacion"=>utf8_decode($datos['ubicacion']),
             "foto"=>$datos['foto'],
             "fecha_evento"=>$datos['fecha_evento'],
             "precio"=>$datos['precio'],
             "estado"=>$datos['estado']);
-        $resultado[] = $data;
+        $resultado[] = array_map("utf8_encode",$data);
       }
     }else{
       $resultado = null;

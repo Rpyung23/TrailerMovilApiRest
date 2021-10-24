@@ -88,7 +88,13 @@ class Menu{
     {
       while ($datos = mysqli_fetch_assoc($result))
       {
-        $resultado[] = $datos;
+        $dato = array("id_menu"=>$datos["id_menu"]
+        ,"detalle"=>utf8_decode($datos["detalle"])
+        ,"precio"=>$datos["precio"]
+        ,"estado"=>$datos["estado"],"foto_menu"=>$datos["foto_menu"]
+        ,"id_tipo_menu"=>$datos["id_tipo_menu"]
+        ,"detalle_tipo"=>utf8_decode($datos["detalle_tipo"]));
+        $resultado[] = array_map("utf8_encode",$dato);
       }
     }else{
       $resultado = null;

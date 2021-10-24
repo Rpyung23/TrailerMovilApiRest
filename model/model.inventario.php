@@ -49,11 +49,13 @@ class Inventario{
     {
       while ($datos = mysqli_fetch_assoc($result))
       {
-        $dato = array("id_producto"=>$datos['id_producto'],"detalle"=>utf8_decode($datos['detalle']),"stock"=>$datos["stock"],
-            "fecha_registro"=>$datos["fecha_registro"],"precio_compra"=>$datos["precio_compra"],
+        $dato = array("id_producto"=>$datos['id_producto']
+        ,"detalle"=>utf8_decode($datos["detalle"]),"stock"=>$datos["stock"],
+            "fecha_registro"=>$datos["fecha_registro"]
+        ,"precio_compra"=>$datos["precio_compra"],
             "detalle_proveedor"=>utf8_decode($datos['detalle_proveedor']),
             "foto_producto"=>$datos["foto_producto"]);
-        $resultado[] = $dato;
+        $resultado[] = array_map("utf8_encode",$dato);
       }
     }else{
       $resultado = null;
