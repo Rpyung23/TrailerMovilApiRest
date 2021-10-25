@@ -34,7 +34,7 @@ class Empleado{
   }
   public static function readModelEmpleado()
   {
-    $sql_ = "select * from empleado as E join roles as R on E.fk_id_rol = R.id_rol";
+    $sql_ = "select * from empleado as E join roles as R on E.fk_id_rol = R.id_rol and estado = 1";
     $result = mysqli_query(Conectar(),$sql_);
     $resultado = [];
     if (mysqli_num_rows($result) > 0)
@@ -45,6 +45,21 @@ class Empleado{
       }
     }else{
       $resultado = null;
+    }
+
+    return $resultado;
+  }
+  public static function readModelEmpleadoActivos()
+  {
+    $sql_ = "select count(*) activos from empleado where estado = 1;";
+    $result = mysqli_query(Conectar(),$sql_);
+    $resultado = null;
+    if (mysqli_num_rows($result) > 0)
+    {
+      while ($datos = mysqli_fetch_assoc($result))
+      {
+        $resultado = intval($datos["activos"]);
+      }
     }
 
     return $resultado;

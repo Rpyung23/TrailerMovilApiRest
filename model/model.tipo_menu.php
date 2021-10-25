@@ -66,6 +66,30 @@ class TipoMenu
     }
     return false;
   }*/
+  /*public static function deleteModelMenu($id_menu)
+ {
+
+   $sql = "update menu set estado = 0 where id_menu = '".$id_menu."'";
+
+   mysqli_begin_transaction(Conectar(),MYSQLI_TRANS_START_READ_WRITE);
+
+   mysqli_autocommit(Conectar(),false);
+
+   try {
+     $result = mysqli_query(Conectar(),$sql);
+
+     if ($result)
+     {
+       mysqli_commit(Conectar());
+       return true;
+     }else{
+       mysqli_rollback(Conectar());
+     }
+   }catch (Exception $e){
+     mysqli_rollback(Conectar());
+   }
+   return false;
+ }*/
 
   public static function readModelTipoMenu()
   {
@@ -85,30 +109,6 @@ class TipoMenu
     return $resultado;
   }
 
-  /*public static function deleteModelMenu($id_menu)
-{
-
-  $sql = "update menu set estado = 0 where id_menu = '".$id_menu."'";
-
-  mysqli_begin_transaction(Conectar(),MYSQLI_TRANS_START_READ_WRITE);
-
-  mysqli_autocommit(Conectar(),false);
-
-  try {
-    $result = mysqli_query(Conectar(),$sql);
-
-    if ($result)
-    {
-      mysqli_commit(Conectar());
-      return true;
-    }else{
-      mysqli_rollback(Conectar());
-    }
-  }catch (Exception $e){
-    mysqli_rollback(Conectar());
-  }
-  return false;
-}*/
 
 
 }

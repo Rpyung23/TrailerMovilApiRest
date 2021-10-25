@@ -15,6 +15,9 @@ if (file_exists('config/createJson.php'))
 
 $json = json_decode(file_get_contents('php://input'),true);
 
+//echo "REQUEST URI";
+//echo $_SERVER['REQUEST_URI'];
+//echo "---------------------";
 switch ($_SERVER['REQUEST_METHOD'])
 {
     case 'POST':
@@ -26,7 +29,15 @@ switch ($_SERVER['REQUEST_METHOD'])
 
     case 'GET':
         $oM = new ControlerInventario();
-        $datos = $oM->readControlerInventario();
+        if (!empty($_GET["fechaF"])
+            && !empty($_GET["fechaI"]))
+        {
+            $datos = $oM->readControlerPromedio($_GET['fechaI'],$_GET["fechaF"]);
+        }else{
+            $datos = $oM->readControlerInventario();
+        }
+
+
         $json = createJson($datos);
         echo json_encode($json);
         break;

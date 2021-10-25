@@ -29,6 +29,12 @@ class ControlerEmpleado
         return $result;
     }
 
+    function readControlerEmpleadoActivos()
+    {
+        $result = Empleado::readModelEmpleadoActivos();
+        return $result;
+    }
+
     function loginControlerEmpleado($datos)
     {
         $result = Empleado::loginEmpleado($datos['user'],$datos['pass']);

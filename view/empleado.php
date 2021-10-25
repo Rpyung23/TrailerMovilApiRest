@@ -25,8 +25,14 @@ switch ($_SERVER['REQUEST_METHOD'])
         break;
 
     case 'GET':
+        $uri = $_SERVER["REQUEST_URI"];
         $oE = new ControlerEmpleado();
-        $datos = $oE->readControlerEmpleado();
+        if (strpos($uri,"activos"))
+        {
+            $datos = $oE->readControlerEmpleadoActivos();
+        }else{
+            $datos = $oE->readControlerEmpleado();
+        }
         $json = createJson($datos);
         echo json_encode($json);
         break;

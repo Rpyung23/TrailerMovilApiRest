@@ -24,5 +24,11 @@ class ControlerInventario
         return $result;
     }
 
+    function readControlerPromedio($dateI,$dateF)
+    {
+        $result = Inventario::readPromedio($dateI,$dateF);
+        return $result;
+    }
+
 }
 ?>

@@ -64,6 +64,24 @@ class Inventario{
     return $resultado;
   }
 
+  public static function readPromedio($dateI,$dateF)
+  {
+    $sql_ = "select CAST(AVG(precio_compra) AS DECIMAL(10,2)) as promedio 
+             from producto where fecha_registro between '".$dateI."' and '".$dateF."'";
+
+    $result = mysqli_query(Conectar(),$sql_);
+    $resultado = null;
+    if (mysqli_num_rows($result) > 0)
+    {
+      while ($datos = mysqli_fetch_assoc($result))
+      {
+        $resultado = doubleval($datos['promedio']);
+      }
+    }
+
+    return $resultado;
+  }
+
 }
 
 
