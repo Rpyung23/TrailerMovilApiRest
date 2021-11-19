@@ -128,6 +128,32 @@ class Menu{
   return false;
 }
 
+  public static function readModelMenuUnico($menu)
+  {
+    $sql_ = "select M.id_menu,M.detalle,M.precio,M.estado,M.foto_menu,TM.id_tipo_menu
+     ,TM.detalle as detalle_tipo from menu as M join tipo_menu as TM 
+         on M.fk_id_tipo_menu = TM.id_tipo_menu where M.id_menu = $menu and estado = 1 order by M.estado DESC";
+
+    $result = mysqli_query(Conectar(),$sql_);
+    $resultado = [];
+    if (mysqli_num_rows($result) > 0)
+    {
+      while ($datos = mysqli_fetch_assoc($result))
+      {
+        $dato = array("id_menu"=>$datos["id_menu"]
+        ,"detalle"=>utf8_decode($datos["detalle"])
+        ,"precio"=>$datos["precio"]
+        ,"estado"=>$datos["estado"],"foto_menu"=>$datos["foto_menu"]
+        ,"id_tipo_menu"=>$datos["id_tipo_menu"]
+        ,"detalle_tipo"=>utf8_decode($datos["detalle_tipo"]));
+        $resultado[] = array_map("utf8_encode",$dato);
+      }
+    }else{
+      $resultado = null;
+    }
+
+    return $resultado;
+  }
 
 }
 

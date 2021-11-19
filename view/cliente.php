@@ -19,9 +19,16 @@ switch ($_SERVER['REQUEST_METHOD'])
 {
     case 'POST':
         $oC = new ControlerCliente();
-        $datos = $oC->insertControlerCliente($json);
-        $json = createJson($datos);
-        echo json_encode($json);
+        $json_send = null;
+        $datos =null;
+        if (strpos($_SERVER['REQUEST_URI'],'compra'))
+        {
+            $datos = $oC->insertControlerCompraWebcash($json);
+        }else{
+            $datos = $oC->insertControlerCliente($json);
+        }
+        $json_send = createJson($datos);
+        echo json_encode($json_send);
         break;
 
     case 'PUT':
@@ -33,7 +40,7 @@ switch ($_SERVER['REQUEST_METHOD'])
 
     case 'GET':
         $oC = new ControlerCliente();
-        $datos = $oC->readControlerCliente($json['email']);
+        $datos = $oC->readControlerCliente($_GET['email']);
         $json = createJson($datos);
         echo json_encode($json);
         break;

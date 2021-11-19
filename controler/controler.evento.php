@@ -34,6 +34,12 @@ class ControlerEvento
         return $result;
     }
 
+    function readControlerEventoId($id)
+    {
+        $result = Evento::readModelEventoUnico($id);
+        return $result;
+    }
+
     function deleteControlerEvento($datos)
     {
         $result = Evento::deleteModelEvento($datos['id_evento']);

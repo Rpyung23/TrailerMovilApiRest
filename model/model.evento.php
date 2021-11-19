@@ -124,6 +124,33 @@ class Evento{
   return false;
 }
 
+  public static function readModelEventoUnico($id_evento)
+  {
+    $sql_ = "select * from evento as E where id_evento = ".$id_evento;
+    //echo $sql_;
+
+    $result = mysqli_query(Conectar(),$sql_);
+    $resultado = [];
+    if (mysqli_num_rows($result) > 0)
+    {
+      while ($datos = mysqli_fetch_assoc($result))
+      {
+        $data = array("id_evento"=>($datos['id_evento']),
+            "nombre"=>utf8_decode($datos['nombre']),
+            "detalle"=>utf8_decode($datos['detalle']),
+            "ubicacion"=>utf8_decode($datos['ubicacion']),
+            "foto"=>$datos['foto'],
+            "fecha_evento"=>$datos['fecha_evento'],
+            "precio"=>$datos['precio'],
+            "estado"=>$datos['estado']);
+        $resultado[] = array_map("utf8_encode",$data);
+      }
+    }else{
+      $resultado = null;
+    }
+
+    return $resultado;
+  }
 
 }
 

@@ -19,6 +19,12 @@ class ControlerCliente
         return $result;
     }
 
+    function insertControlerCompraWebcash($datos)
+    {
+        $result = Cliente::registerModelCompraWebCash($datos['email'],$datos['estado'],$datos['tipo'],$datos['recibo']);
+        return $result;
+    }
+
     function updateControlerCliente($datos)
     {
         $result = Cliente::updateModelCliente($datos['email'],$datos['nombres']

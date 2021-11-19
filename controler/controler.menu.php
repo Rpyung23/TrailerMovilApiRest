@@ -32,6 +32,12 @@ class ControlerMenu
         return $result;
     }
 
+    function readControlerMenuUnico($menu)
+    {
+        $result = Menu::readModelMenuUnico($menu);
+        return $result;
+    }
+
     function deleteControlerMenu($datos)
     {
         $result = Menu::deleteModelMenu($datos['id_menu']);
