@@ -22,5 +22,10 @@ class ControlerCompra
         return $result;
     }
 
+    function registroModelFacturaEmpleadoWeb($evento,$email,$total,$cantBoletos,$recibopaypal)
+    {
+        return Compra::registroModelFacturaEmpleadoWeb($evento,$email,$total,$cantBoletos,$recibopaypal);
+    }
+
 }
 ?>

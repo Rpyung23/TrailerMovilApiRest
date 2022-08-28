@@ -82,6 +82,31 @@ class ClienteMenuTemp{
     return false;
   }
 
+  public static function deleteModelClienteMenuTempEmpleado($empleado,$dni,$producto)
+  {
+
+    $sql = "delete from cliente_menu_temp where clienteDNI = '".$dni."' and empleado = '".$empleado."' and fk_id_menu = $producto";
+
+    mysqli_begin_transaction(Conectar(),MYSQLI_TRANS_START_READ_WRITE);
+
+    mysqli_autocommit(Conectar(),false);
+
+    try {
+      $result = mysqli_query(Conectar(),$sql);
+
+      if ($result)
+      {
+        mysqli_commit(Conectar());
+        return true;
+      }else{
+        mysqli_rollback(Conectar());
+      }
+    }catch (Exception $e){
+      mysqli_rollback(Conectar());
+    }
+    return false;
+  }
+
   public static function readModelClienteMenuTemp($email)
   {
     $sql_ = "select CP.fk_id_menu,M.detalle,M.foto_menu,M.precio,CP.cantidad,(CP.cantidad*M.precio) total 
@@ -106,6 +131,26 @@ class ClienteMenuTemp{
 
     return $resultado;
   }
+
+  public static function registerModelClienteMenuTempEmpleado($menu,$cantidad,$empleado,$cliente)
+  {
+    $sql = "insert into cliente_menu_temp(fk_id_menu, cantidad, empleado, clienteDNI,fechaRegistro) 
+            values ($menu,$cantidad,'".$empleado."','".$cliente."',current_date())";
+
+    mysqli_begin_transaction(Conectar(),MYSQLI_TRANS_START_READ_WRITE);
+    mysqli_autocommit(Conectar(),false);
+
+    try {
+      mysqli_query(Conectar(),$sql);
+      mysqli_commit(Conectar());
+      return true;
+    }catch (Exception $e){
+      mysqli_rollback(Conectar());
+      return false;
+    }
+
+  }
+
 
 
 }

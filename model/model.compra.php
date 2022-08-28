@@ -12,7 +12,11 @@ class Compra{
   public static function readModelCompra($email)
   {
 
-    $sql_ = "select F.id_factura,F.num_recibo as paypal,F.fecha_registro,F.total_factura from factura as F where F.fk_email = '".$email."'";
+    $sql_ = "select FE.idFactura,E.nombre as nombreEvento,FE.cantBoletos,FE.totalFactura,E.precio,
+       C.email,C.nombres,C.telefono,C.direccion,FE.fechaRegistro,FE.num_recibo
+       from facturaEventos as FE join
+       evento as E on FE.IdEvento = E.id_evento join cliente as C on
+       FE.usuarioCompra = C.email where FE.usuarioCompra = '".$email."' order by FE.fechaRegistro desc;";
     $result = mysqli_query(Conectar(),$sql_);
     $resultado = [];
     if (mysqli_num_rows($result) > 0)
@@ -32,10 +36,11 @@ class Compra{
   public static function readModelDetalleCompraUnico($factura,$paypal)
   {
 
-    $sql_ = "select F.id_factura,F.num_recibo as paypal,F.fecha_registro,F.total_factura as total_factura,
-       M.id_menu,M.detalle,M.precio as precioUni,FM.cantidad,FM.precioT as precioTU from factura as F
-    join factura_menu as FM on F.id_factura = FM.fk_id_factura join menu as M on FM.fk_id_menu = M.id_menu
-    where F.num_recibo = '".$paypal."' and F.id_factura = $factura";
+    $sql_ = "select FE.idFactura,E.nombre as nombreEvento,FE.cantBoletos,FE.totalFactura,E.precio,
+       C.email,C.nombres,C.telefono,C.direccion,FE.fechaRegistro,FE.num_recibo
+       from facturaEventos as FE join
+       evento as E on FE.IdEvento = E.id_evento join cliente as C on
+       FE.usuarioCompra = C.email where FE.idFactura = '".$factura."';";
     $result = mysqli_query(Conectar(),$sql_);
     $resultado = [];
     if (mysqli_num_rows($result) > 0)
@@ -51,6 +56,24 @@ class Compra{
     return $resultado;
   }
 
+  public static function registroModelFacturaEmpleadoWeb($evento,$email,$total,$cantBoletos,$recibopaypal)
+  {
+    $oSql = "call registroCompraBoletos(".$evento.",'".$email."',".$total.",
+                    ".$cantBoletos.",'".$recibopaypal."')";
+
+    $result = mysqli_query(Conectar(),$oSql);
+    $resultado = null;
+
+    if ($result !=null && mysqli_num_rows($result) > 0)
+    {
+      $resultado = mysqli_fetch_assoc($result);
+      return $resultado['resultado'];
+    }
+
+    return $resultado;
+
+
+  }
 
 }
 

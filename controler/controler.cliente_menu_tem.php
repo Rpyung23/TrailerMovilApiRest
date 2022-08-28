@@ -16,9 +16,22 @@ class ControlerClienteMenuTemp
         return $result;
     }
 
+    function registerModelClienteMenuTempEmpleado($menu,$cantidad,$empleado,$cliente)
+    {
+        return ClienteMenuTemp::registerModelClienteMenuTempEmpleado($menu,$cantidad,$empleado,$cliente);
+    }
+
     function deleteControlerClienteMenuTemp($json)
     {
         $result = ClienteMenuTemp::deleteModelClienteMenuTemp($json['email'],$json['menu']);
+        return $result;
+    }
+
+
+    function deleteControlerClienteMenuTempEmpleado($json)
+    {
+        //$empleado,$dni,$producto
+        $result = ClienteMenuTemp::deleteModelClienteMenuTempEmpleado($json['empleado'],$json['dni'],$json['producto']);
         return $result;
     }
 

@@ -10,11 +10,12 @@ if (file_exists('config/includes.php'))
 class Evento{
 
   public static function registerModelEvento($nombre, $detalle, $ubicacion, $foto
-      , $fecha_evento, $precio)
+      , $fecha_evento, $precio,$cantBoletos)
   {
 
-    $sql = "insert into evento(nombre, detalle, ubicacion, foto, fecha_evento, precio,estado) 
-                 values ('".$nombre."','".$detalle."','".$ubicacion."','".$foto."','".$fecha_evento."',$precio,1)";
+    $sql = "insert into evento(nombre, detalle, ubicacion, foto, fecha_evento, precio,estado,numBoletosDisponibles,numBoletos) 
+                 values ('".$nombre."','".$detalle."','".$ubicacion."','".$foto."','".$fecha_evento."',$precio,1,
+                 ".$cantBoletos.",".$cantBoletos.")";
 
     mysqli_begin_transaction(Conectar(),MYSQLI_TRANS_START_READ_WRITE);
 
@@ -70,10 +71,10 @@ class Evento{
 
     if($estado == 'all')
     {
-      $sql_ = "select * from evento as E order by E.fecha_evento DESC";
+      $sql_ = "select * from evento as E order by E.id_evento DESC";
     }else if ($estado == 'active')
     {
-      $sql_ = "select * from evento as E where estado = 1 and E.fecha_evento>=CURRENT_DATE() order by E.fecha_evento DESC";
+      $sql_ = "select * from evento as E where estado = 1 and E.fecha_evento>=CURRENT_DATE() order by E.id_evento DESC";
     }
 
     $result = mysqli_query(Conectar(),$sql_);
@@ -89,7 +90,8 @@ class Evento{
             "foto"=>$datos['foto'],
             "fecha_evento"=>$datos['fecha_evento'],
             "precio"=>$datos['precio'],
-            "estado"=>$datos['estado']);
+            "estado"=>$datos['estado'],
+            "numBoletosDisponibles"=>$datos['numBoletosDisponibles']);
         $resultado[] = array_map("utf8_encode",$data);
       }
     }else{
@@ -142,8 +144,9 @@ class Evento{
             "foto"=>$datos['foto'],
             "fecha_evento"=>$datos['fecha_evento'],
             "precio"=>$datos['precio'],
-            "estado"=>$datos['estado']);
-        $resultado[] = array_map("utf8_encode",$data);
+            "estado"=>$datos['estado'],
+            "numBoletosDisponibles"=>$datos['numBoletosDisponibles']);
+        $resultado = array_map("utf8_encode",$data);
       }
     }else{
       $resultado = null;

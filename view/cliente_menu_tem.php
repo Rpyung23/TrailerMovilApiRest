@@ -18,10 +18,19 @@ $json = json_decode(file_get_contents('php://input'),true);
 switch ($_SERVER['REQUEST_METHOD'])
 {
     case 'POST':
-        $oC = new ControlerClienteMenuTemp();
-        $datos = $oC->insertControlerClienteMenuTem($json);
-        $json = createJson($datos);
-        echo json_encode($json);
+        if(strpos($_SERVER['REQUEST_URI'],'menuTempEmpleado'))
+        {
+            $oC = new ControlerClienteMenuTemp();
+            //$menu,$cantidad,$empleado,$cliente
+            $datos = $oC->registerModelClienteMenuTempEmpleado($json['menu'],$json['cantidad'],$json['empleado'],$json['cliente']);
+            $json = createJson($datos);
+            echo json_encode($json);
+        }else{
+            $oC = new ControlerClienteMenuTemp();
+            $datos = $oC->insertControlerClienteMenuTem($json);
+            $json = createJson($datos);
+            echo json_encode($json);
+        }
         break;
 
     case 'GET':
@@ -33,10 +42,18 @@ switch ($_SERVER['REQUEST_METHOD'])
         break;
 
     case 'DELETE':
-        $oC = new ControlerClienteMenuTemp();
-        $datos = $oC->deleteControlerClienteMenuTemp($json);
-        $json = createJson($datos);
-        echo json_encode($json);
+        if(strpos($_SERVER['REQUEST_URI'],'menuTempEmpleado')) {
+            $oC = new ControlerClienteMenuTemp();
+            $datos = $oC->deleteControlerClienteMenuTempEmpleado($json);
+            $json = createJson($datos);
+            echo json_encode($json);
+        }else{
+            $oC = new ControlerClienteMenuTemp();
+            $datos = $oC->deleteControlerClienteMenuTemp($json);
+            $json = createJson($datos);
+            echo json_encode($json);
+        }
+
         break;
 
 }

@@ -39,6 +39,14 @@ switch ($_SERVER['REQUEST_METHOD'])
         $json = createJson($datos);
         echo json_encode($json);
         break;
+
+    case 'POST':
+        $oC = new ControlerCompra();
+        $datos = $oC->registroModelFacturaEmpleadoWeb($json['evento'],$json['email'],$json['total'],
+                      $json['cantBoletos'],$json['recibopaypal']);
+        $json = createJson(($datos));
+        echo json_encode($json);
+        break;
 }
 
 ?>

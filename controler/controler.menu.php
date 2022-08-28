@@ -38,6 +38,13 @@ class ControlerMenu
         return $result;
     }
 
+
+    function readControlerItemMenuUnico($menu)
+    {
+        $result = Menu::readModelItemMenuUnico($menu);
+        return $result;
+    }
+
     function deleteControlerMenu($datos)
     {
         $result = Menu::deleteModelMenu($datos['id_menu']);

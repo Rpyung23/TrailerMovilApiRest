@@ -13,7 +13,7 @@ class ControlerEvento
     {
         $result = Evento::registerModelEvento($datos['nombre'],$datos['detalle']
             ,$datos['ubicacion'],$datos['foto']
-            ,$datos['fecha_evento'],$datos['precio']);
+            ,$datos['fecha_evento'],$datos['precio'],$datos['numBoletosDisponibles']);
         return $result;
     }
 
