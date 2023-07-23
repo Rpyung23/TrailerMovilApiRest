@@ -40,8 +40,16 @@ switch ($_SERVER['REQUEST_METHOD'])
 
     case 'GET':
         $oC = new ControlerCliente();
-        $datos = $oC->readControlerCliente($_GET['email']);
-        $json = createJson($datos);
+
+        if (strpos($_SERVER['REQUEST_URI'],"all_clientes"))
+        {
+            $datos = $oC->readControlerAllCliente();
+            $json = createJson($datos);
+        }else{
+            $datos = $oC->readControlerCliente($_GET['email']);
+            $json = createJson($datos);
+        }
+
         echo json_encode($json);
         break;
 

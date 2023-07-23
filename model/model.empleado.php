@@ -68,6 +68,9 @@ class Empleado{
   {
     $sql_ = "select E.user,E.nombres,R.id_rol,R.detalle from empleado as E join roles as R on E.fk_id_rol = R.id_rol
        where E.user = '".$user."' and E.password = '".$pass."' and estado = 1";
+
+    //echo $sql_;
+
     $result = mysqli_query(Conectar(),$sql_);
     $resultado = null;
     if (mysqli_num_rows($result) > 0)

@@ -46,5 +46,11 @@ class ControlerCliente
         $result = Cliente::loginCliente($datos['email'],$datos['pass']);
         return $result;
     }
+
+    function readControlerAllCliente()
+    {
+        $result = Cliente::readModelAllClienteActivo();
+        return $result;
+    }
 }
 ?>

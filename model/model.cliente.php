@@ -137,6 +137,25 @@ class Cliente{
   }
 
 
+  public static function readModelAllClienteActivo()
+  {
+    $sql_ = "select C.email,C.nombres,C.telefono from cliente as C where C.estado = 1;";
+    $result = mysqli_query(Conectar(),$sql_);
+    $resultado = [];
+    if (mysqli_num_rows($result) > 0)
+    {
+      while ($datos = mysqli_fetch_assoc($result))
+      {
+        $resultado[] = $datos;
+      }
+    }else{
+      $resultado = null;
+    }
+
+    return $resultado;
+  }
+
+
 
 }
 
