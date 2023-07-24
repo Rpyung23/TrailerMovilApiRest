@@ -31,6 +31,26 @@ switch ($_SERVER['REQUEST_METHOD'])
         //var_dump($json);
         echo json_encode($json);
         break;
+
+    case 'POST':
+        $oC = new ControlerNotification();
+        $json_send = null;
+        $datos =null;
+        if (strpos($_SERVER['REQUEST_URI'],'email'))
+        {
+            $datos = $oC->insertControlerNotificationEmail($json);
+        }else{
+            $datos = $oC->insertControlerNotificationWhatsApp($json);
+        }
+        $json_send = createJson($datos);
+        echo json_encode($json_send);
+        break;
+
+
+
+    
+    
 }
+
 
 ?>

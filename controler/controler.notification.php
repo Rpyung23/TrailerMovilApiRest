@@ -14,5 +14,20 @@ class ControlerNotification
         $result = cNotification::readModelNotificationAll($tipo);
         return $result;
     }
+
+    function insertControlerNotificationEmail($datos)
+    {
+        $result = cNotification::insertNotificationEmail($datos['name'],$datos['html_content']);
+        return $result;
+    }
+
+    function insertControlerNotificationWhatsApp($datos)
+    {
+        $result = cNotification::insertNotificationWhatsApp($datos['name'],$datos['texto']);
+        return $result;
+    }
+
+
+
 }
 ?>
