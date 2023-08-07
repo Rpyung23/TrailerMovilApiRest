@@ -104,7 +104,8 @@ class Evento{
   public static function deleteModelEvento($id_evento)
 {
 
-  $sql = "update evento set estado = 0 where id_evento = '".$id_evento."'";
+  $sql = "update evento set estado = 0 where id_evento = ".$id_evento."";
+  //echo($sql);
 
   mysqli_begin_transaction(Conectar(),MYSQLI_TRANS_START_READ_WRITE);
 

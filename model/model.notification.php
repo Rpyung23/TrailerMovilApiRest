@@ -31,7 +31,7 @@ class cNotification
 
                     $obj = array(
                         "idNotificaion" => ($datos['idNotificaion']),
-                        "name_notificacion" => utf8_encode($datos['name_notificacion']),
+                        "name_notificacion" => (($datos['name_notificacion'])),
                         "cant_alcanzada" => $datos['cant_alcanzada'],
                         "ultimo_envio" => $datos['ultimo_envio'],
                         "html_content" => $datos['html_content']
@@ -40,11 +40,11 @@ class cNotification
 
                     $obj = array(
                         "idNotificaion" => ($datos['idNotificaion']),
-                        "name_notificacion" => utf8_decode(utf8_encode($datos['name_notificacion'])),
+                        "name_notificacion" => (($datos['name_notificacion'])),
                         "cant_alcanzada" => $datos['cant_alcanzada'],
                         "ultimo_envio" => $datos['ultimo_envio'],
                         "precio_envio" => $datos['precio_envio'],
-                        "texto" => utf8_decode(utf8_encode($datos['texto']))
+                        "texto" => (($datos['texto']))
                     );
                 }
 
