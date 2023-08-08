@@ -47,5 +47,12 @@ class ControlerEvento
         return $result;
     }
 
+
+    function readControllerTicketEvento($eventos)
+    {
+        $result = Evento::readModelTicketEvento($eventos);
+        return $result;
+    }
+
 }
 ?>

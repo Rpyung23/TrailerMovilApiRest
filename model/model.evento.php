@@ -156,6 +156,44 @@ class Evento{
     return $resultado;
   }
 
+
+  public static function readModelTicketEvento($eventos)
+  {
+    $sql_Eventos = "";
+
+    if($eventos != null)
+    {
+      $sql_Eventos = " and  E.id_evento in (".$eventos.") ";
+    }
+
+    $sql_ = "select E.id_evento,E.nombre,FE.num_recibo,FE.cantBoletos,C.nombres,FE.usuarioCompra,FE.totalFactura,FE.fechaRegistro,
+    FE.is_devolucion from evento as E inner join facturaEventos as FE on E.id_evento = FE.IdEvento
+    inner join cliente as C on C.email = FE.usuarioCompra where E.estado = 1 ".$sql_Eventos." order by E.fecha_evento desc;";
+
+    $result = mysqli_query(Conectar(),$sql_);
+    $resultado = [];
+    if (mysqli_num_rows($result) > 0)
+    {
+      while ($datos = mysqli_fetch_assoc($result))
+      {
+        $data = array("id_evento"=>($datos['id_evento']),
+            "nombre"=>utf8_decode($datos['nombre']),
+            "num_recibo"=>($datos['num_recibo']),
+            "cantBoletos"=>($datos['cantBoletos']),
+            "usuarioCompra"=>$datos['usuarioCompra'],
+            "totalFactura"=>$datos['totalFactura'],
+            "fechaRegistro"=>$datos['fechaRegistro'],
+            "is_devolucion"=>$datos['is_devolucion'],
+            "nombres"=>$datos['nombres']);
+        $resultado[] = array_map("utf8_encode",$data);
+      }
+    }else{
+      $resultado = null;
+    }
+
+    return $resultado;
+  }
+
 }
 
 
