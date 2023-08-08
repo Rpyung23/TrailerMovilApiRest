@@ -44,7 +44,7 @@ class cNotification
                         "cant_alcanzada" => $datos['cant_alcanzada'],
                         "ultimo_envio" => $datos['ultimo_envio'],
                         "precio_envio" => $datos['precio_envio'],
-                        "texto" => (($datos['texto']))
+                        "texto" => utf8_decode($datos['texto'])
                     );
                 }
 
